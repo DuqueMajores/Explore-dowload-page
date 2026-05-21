@@ -91,8 +91,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 4rem; /* Garante um espaçamento saudável entre o texto e o vídeo */
             min-height: 100vh;
-            padding: 6rem 5% 2rem;
+            padding: 8rem 5% 4rem;
             position: relative;
         }
 
@@ -150,17 +151,25 @@
             box-shadow: 0 15px 25px rgba(0, 242, 254, 0.5);
         }
 
-        hero-image video {
-            max-width: 100%;
+        /* Container do vídeo ajustado para dividir espaço */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Estilo unificado do Elemento de Vídeo com Animação */
+        .hero-image video {
+            width: 100%;
+            max-width: 550px; /* Impede que o vídeo fique excessivamente grande em telas gigantes */
             height: auto;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             border: 4px solid #1a2235;
             cursor: pointer;
-            /* Transforma a seta do mouse na mãozinha de clique */
             opacity: 0;
             animation: fadeInImage 1.5s ease-out forwards;
-            /* Traz a animação de volta */
         }
 
         @keyframes fadeInImage {
@@ -173,16 +182,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            border: 4px solid #1a2235;
-            opacity: 0;
-            animation: fadeInImage 1.5s ease-out forwards;
         }
 
         /* Features Section */
@@ -242,10 +241,11 @@
         }
 
         /* Responsividade */
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .hero {
                 flex-direction: column;
                 text-align: center;
+                gap: 2rem;
                 padding-top: 8rem;
             }
 
@@ -254,7 +254,12 @@
             }
 
             .hero-image {
-                margin-top: 3rem;
+                margin-top: 1rem;
+                width: 100%;
+            }
+
+            .hero-image video {
+                width: 85%;
             }
 
             /* Menu Responsivo */
@@ -335,8 +340,7 @@
                 <a href="./src/build/Explore.apk" class="btn-download" download>Baixar Explore.apk</a>
             </div>
             <div class="hero-image">
-                <video id="exploreVideo" playsinline onclick="this.paused ? this.play() : this.pause();"
-                    style="width: 90%;">
+                <video id="exploreVideo" playsinline onclick="this.paused ? this.play() : this.pause();">
                     <source src="./src/video/explore-video.mp4" type="video/mp4">
                     Seu navegador não suporta a reprodução de vídeos.
                 </video>
