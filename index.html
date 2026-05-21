@@ -162,6 +162,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -287,9 +288,11 @@
                 transform: translateY(9px) rotate(45deg);
                 background-color: #00f2fe;
             }
+
             .hamburger.active .bar:nth-child(2) {
                 opacity: 0;
             }
+
             .hamburger.active .bar:nth-child(3) {
                 transform: translateY(-9px) rotate(-45deg);
                 background-color: #00f2fe;
@@ -308,7 +311,7 @@
             <a href="comunidade.html">Comunidade</a>
             <a href="sobre.html">Sobre o App</a>
         </nav>
-        
+
         <div class="hamburger">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -326,7 +329,11 @@
                 <a href="./src/build/Explore.apk" class="btn-download" download>Baixar Explore.apk</a>
             </div>
             <div class="hero-image">
-                <img src="./src/image/explore-gemini.png" alt="" style="width: 90%;">
+                <video autoplay loop muted playsinline
+                    style="width: 90%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); border: 4px solid #1a2235;">
+                    <source src="./src/video/explore-video.mp4" type="video/mp4">
+                    Seu navegador não suporta a reprodução de vídeos.
+                </video>
             </div>
         </section>
 
