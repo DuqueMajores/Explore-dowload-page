@@ -71,6 +71,23 @@
             color: #00f2fe;
         }
 
+        /* Estilos do Menu Hambúrguer (Base) */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger .bar {
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
         /* Container Principal */
         .container {
             max-width: 1100px;
@@ -260,6 +277,51 @@
             .ai-core-box {
                 padding: 2rem;
             }
+
+            /* Menu Responsivo */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100vh;
+                background: rgba(26, 34, 53, 0.95);
+                backdrop-filter: blur(15px);
+                padding-top: 100px;
+                transition: right 0.4s ease;
+                border-left: 1px solid rgba(255, 255, 255, 0.05);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                margin: 1.5rem 0;
+                font-size: 1.2rem;
+            }
+
+            /* Animação Hambúrguer */
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+                background-color: #00f2fe;
+            }
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+                background-color: #00f2fe;
+            }
         }
     </style>
 </head>
@@ -271,8 +333,14 @@
         <nav class="nav-links">
             <a href="index.html">Início</a>
             <a href="comunidade.html">Comunidade</a>
-            <a href="sobre.html">Sobre o App</a>
+            <a href="sobre.html" class="active">Sobre o App</a>
         </nav>
+        
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </header>
 
     <main class="container">
@@ -341,6 +409,20 @@
         <p>&copy; 2026 Explore IA. Todos os direitos reservados. Mostre ao Mundo que você sabe!</p>
     </footer>
 
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        }));
+    </script>
 </body>
 
 </html>
