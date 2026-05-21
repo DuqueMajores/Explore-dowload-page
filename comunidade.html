@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade | Explore IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e Variáveis Compartilhadas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-color: #0b0f19;
+            --surface-color: #1a2235;
+            --surface-light: #242f4d;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --primary-glow: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --ai-glow: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 8rem;
+            /* Espaço para o menu fixo */
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00f2fe;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Cabeçalho da Comunidade */
+        .comm-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .comm-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 200px;
+            background: #4facfe;
+            filter: blur(150px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .comm-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .comm-header h1 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .comm-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Layout em Duas Colunas */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        /* Seção de Fóruns / Tópicos */
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .forum-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .forum-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 242, 254, 0.2);
+        }
+
+        .forum-tag {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: rgba(0, 242, 254, 0.1);
+            color: #00f2fe;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .forum-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+        }
+
+        .forum-card h3:hover {
+            color: #00f2fe;
+        }
+
+        .forum-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Bloco de Opinião de IA dentro do Fórum */
+        .ai-insight {
+            background: rgba(168, 85, 247, 0.05);
+            border-left: 4px solid #a855f7;
+            padding: 1rem;
+            border-radius: 0 12px 12px 0;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        .ai-insight strong {
+            background: var(--ai-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .forum-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Lateral: Perfis e Líderes de Opinião */
+        .sidebar-box {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0, 242, 254, 0.2);
+        }
+
+        .profile-info h4 {
+            font-size: 0.95rem;
+        }
+
+        .profile-info p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .badge-xp {
+            margin-left: auto;
+            background: var(--surface-light);
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #00f2fe;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            margin-top: 3rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .comm-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Explore IA</a>
+        <nav class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="comunidade.html">Comunidade</a>
+            <a href="sobre.html">Sobre o App</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="comm-header">
+            <h1>Fóruns da <span>Comunidade</span></h1>
+            <p>O ponto de encontro global onde notícias viram debates e visões são validadas por Inteligência
+                Artificial. Mostre seus argumentos!</p>
+        </section>
+
+        <div class="main-layout">
+            <section class="feed-section">
+                <h2 class="section-title"><img src="./src/image/em_alta-icon.png" alt=""> Tópicos em Alta</h2>
+
+                <div class="forum-card">
+                    <span class="forum-tag">Tecnologia & Sociedade</span>
+                    <h3>O impacto dos novos modelos generativos na economia global</h3>
+                    <p>Com a automação inteligente avançando sobre setores criativos e analíticos, quais serão os novos
+                        pilares de valor para os profissionais do futuro?</p>
+
+                    <div class="ai-insight">
+                        <strong>🤖 IA Insight Contextual:</strong>
+                        "As discussões neste tópico convergem para a necessidade de requalificação ágil. Dados
+                        históricos mostram que revoluções tecnológicas anteriores criaram novos mercados após a
+                        estabilização inicial."
+                    </div>
+
+                    <div class="forum-stats">
+                        <span>💬 342 Respostas</span>
+                        <span>👁️ 1.2k Visualizações</span>
+                        <span>⏱️ Ativo há 5 min</span>
+                    </div>
+                </div>
+
+                <div class="forum-card">
+                    <span class="forum-tag">Exploração Científica</span>
+                    <h3>O paradoxo do tempo na busca por bioassinaturas cósmicas</h3>
+                    <p>Se o tecido do universo atrasa os sinais visuais que recebemos de exoplanetas distantes,
+                        estaríamos procurando por civilizações que já deixaram de existir ou que ainda vão nascer?</p>
+
+                    <div class="ai-insight">
+                        <strong>🤖 IA Insight Contextual:</strong>
+                        "Membros com alta reputação em astrobiologia sugerem que a IA do Explore mapeie 'bolhas
+                        temporais' de probabilidade para otimizar os filtros de notícias astronômicas na galeria."
+                    </div>
+
+                    <div class="forum-stats">
+                        <span>💬 189 Respostas</span>
+                        <span>👁️ 890 Visualizações</span>
+                        <span>⏱️ Ativo há 24 min</span>
+                    </div>
+                </div>
+
+                <div class="forum-card">
+                    <span class="forum-tag">Cultura Digital</span>
+                    <h3>Privacidade de dados e avatares descentralizados em redes sociais</h3>
+                    <p>Até que ponto a segurança de um perfil criptografado melhora a liberdade de expressão sem
+                        comprometer a moderação contra discursos nocivos?</p>
+
+                    <div class="forum-stats">
+                        <span>💬 95 Respostas</span>
+                        <span>👁️ 410 Visualizações</span>
+                        <span>⏱️ Ativo há 1 hora</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <aside class="sidebar-section">
+
+                <div class="sidebar-box">
+                    <h3 class="section-title"><img src="./src/image/lider-icon.png" alt=""> Líderes de Opinião</h3>
+
+                    <div class="profile-item">
+                        <div class="avatar" style="background: linear-gradient(135deg, #ff007f 0%, #7f00ff 100%);">AL
+                        </div>
+                        <div class="profile-info">
+                            <h4>Alex Lima</h4>
+                            <p>Especialista em Ciência</p>
+                        </div>
+                        <span class="badge-xp">Nível 8</span>
+                    </div>
+
+                    <div class="profile-item">
+                        <div class="avatar" style="background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);">BM
+                        </div>
+                        <div class="profile-info">
+                            <h4>Beatriz Melo</h4>
+                            <p>Analista de Tecnologia</p>
+                        </div>
+                        <span class="badge-xp">Nível 7</span>
+                    </div>
+
+                    <div class="profile-item">
+                        <div class="avatar" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);">CR
+                        </div>
+                        <div class="profile-info">
+                            <h4>Carlos Rocha</h4>
+                            <p>Crítico de Economia</p>
+                        </div>
+                        <span class="badge-xp">Nível 6</span>
+                    </div>
+
+                </div>
+
+                <div class="sidebar-box">
+                    <h3 class="section-title"><img src="./src/image/status-icon.png" alt=""> Status do Explore</h3>
+                    <div class="forum-stats" style="flex-direction: column; gap: 0.8rem; font-size: 0.95rem;">
+                        <div>🟢 <strong>14,230</strong> usuários online agora</div>
+                        <div>🤖 <strong>2,410</strong> análises de IA geradas hoje</div>
+                        <div>📈 <strong>+45%</strong> de engajamento nos fóruns esta semana</div>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Explore IA. Todos os direitos reservados. Mostre ao Mundo que você sabe!</p>
+    </footer>
+
+</body>
+
+</html>

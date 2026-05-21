@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre o App | Explore IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e Variáveis Compartilhadas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-color: #0b0f19;
+            --surface-color: #1a2235;
+            --surface-light: #242f4d;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --primary-glow: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --ai-glow: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 8rem;
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00f2fe;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Sobre */
+        .about-hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-hero h1 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Seções de Conteúdo */
+        .vision-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .vision-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .vision-text h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--accent-gradient);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .vision-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Bloco Destacado da IA */
+        .ai-core-box {
+            background: linear-gradient(135deg, rgba(26, 34, 53, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 6rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.05);
+        }
+
+        .ai-core-box::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 200px;
+            height: 200px;
+            background: #a855f7;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .ai-core-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: var(--ai-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ai-mechanics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mechanic-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mechanic-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .mechanic-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Call To Action Final */
+        .cta-section {
+            text-align: center;
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--accent-gradient);
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0, 242, 254, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .vision-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .vision-text h2::after {
+                margin: 0.5rem auto 0;
+            }
+
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .ai-core-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Explore IA</a>
+        <nav class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="comunidade.html">Comunidade</a>
+            <a href="sobre.html">Sobre o App</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section class="about-hero">
+            <h1>A Conectividade Encontra a <span>Inteligência</span></h1>
+            <p>O Explore IA nasceu para transformar a maneira como consumimos informação e interagimos em sociedade,
+                substituindo o ruído digital por conhecimento fundamentado.</p>
+        </section>
+
+        <section class="vision-section">
+            <div class="vision-text">
+                <h2>Mostre ao Mundo o que Você Sabe</h2>
+                <p>Em um cenário digital saturado por opiniões vazias e desinformação, o Explore surge como um
+                    ecossistema seguro para quem busca debater com base em fatos reais.</p>
+                <p>Aqui, suas interações nos fóruns e notícias moldam sua reputação dentro da plataforma. Mais do que
+                    uma rede social, criamos uma vitrine para a inteligência coletiva.</p>
+            </div>
+            <div class="vision-text"
+                style="background: var(--surface-color); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                <h2>Nossos Pilares</h2>
+                <p style="margin-bottom: 1rem;"><strong>🔒 Imparcialidade Garantida:</strong> Ferramentas analíticas que
+                    contextualizam os dois lados de qualquer acontecimento global.</p>
+                <p style="margin-bottom: 1rem;"><strong>💡 Conhecimento Meritocrático:</strong> Perfis que ganham
+                    relevância real à medida que fornecem argumentos validados.</p>
+                <p style="margin-bottom: 0;"><strong>Visualização Imersiva:</strong> Galerias integradas de dados e
+                    mídias geradas tanto por usuários quanto pela rede de IA.</p>
+            </div>
+        </section>
+
+        <section class="ai-core-box">
+            <h2>O Motor da Rede: Como a nossa IA funciona?</h2>
+            <p style="color: var(--text-secondary); max-width: 800px;">A Inteligência Artificial do Explore opera de
+                forma silenciosa e preditiva nos bastidores, atuando como um assistente analítico pessoal para cada
+                membro da comunidade.</p>
+
+            <div class="ai-mechanics">
+                <div class="mechanic-card">
+                    <h3>Contextualização de Notícias</h3>
+                    <p>Ao abrir qualquer artigo, a IA compila instantaneamente um resumo neutro, checa fontes cruzadas
+                        em tempo real e expõe vieses ideológicos conhecidos.</p>
+                </div>
+                <div class="mechanic-card">
+                    <h3>Moderação Construtiva</h3>
+                    <p>Esqueça os ataques pessoais. Nos fóruns, a IA atua sugerindo dados estatísticos e
+                        contra-argumentos lógicos para elevar o nível do debate.</p>
+                </div>
+                <div class="mechanic-card">
+                    <h3>Pontuação de Prestígio</h3>
+                    <p>Nosso algoritmo avalia a qualidade da sua argumentação e a precisão das suas análises, gerando o
+                        seu nível de especialista no perfil.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Pronto para fazer parte do futuro?</h2>
+            <p>Faça o download agora mesmo da versão de lançamento e comece a construir a sua reputação na comunidade
+                mais inteligente da web.</p>
+            <a href="./src/build/Explore.apk" class="btn-download" download>Baixar Explore.apk</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Explore IA. Todos os direitos reservados. Mostre ao Mundo que você sabe!</p>
+    </footer>
+
+</body>
+
+</html>
